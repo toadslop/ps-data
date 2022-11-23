@@ -1,0 +1,3 @@
+[tasks.start_back]
+command = "cargo"
+args = ["run"]
