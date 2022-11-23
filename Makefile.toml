@@ -1,2 +1,27 @@
 [env]
 CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
+MIGRATION_DIR = "database/migration"
+
+[tasks.migrate_up]
+workspace = false
+command = "cargo"
+args = ["run", "--manifest-path", "${MIGRATION_DIR}/Cargo.toml"]
+
+[tasks.migrate_down]
+workspace = false
+command = "cargo"
+args = ["run", "--manifest-path", "${MIGRATION_DIR}/Cargo.toml", "--", "down"]
+
+[tasks.init_db]
+workspace = false
+env_files = [
+    ".env",
+]
+script = [
+  "sudo -u $(whoami) psql -c \"create database ${POSTGRES_DB};\"",
+  "sudo -u $(whoami) psql -c \"create user ${POSTGRES_USER} with encrypted password '${POSTGRES_PASSWORD}'; grant all privileges on database ${POSTGRES_DB} to ${POSTGRES_USER};\""
+]
+
+[tasks.start_back]
+command = "cargo"
+args = ["run", "--manifest-path", "backend/Cargo.toml"]
