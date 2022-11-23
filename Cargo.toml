@@ -4,5 +4,6 @@ members = [
     "backend",
     "database",
     "database/migration",
+    "database/entity",
     "common"
-]
+] 
