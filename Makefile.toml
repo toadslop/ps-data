@@ -23,6 +23,7 @@ script = [
 ]
 
 [tasks.start_back]
+workspace = false
 command = "cargo"
 args = ["run", "--manifest-path", "backend/Cargo.toml"]
 
