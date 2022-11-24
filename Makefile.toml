@@ -25,3 +25,13 @@ script = [
 [tasks.start_back]
 command = "cargo"
 args = ["run", "--manifest-path", "backend/Cargo.toml"]
+
+[tasks.g_entity]
+workspace = false
+install_crate = { crate_name = "sea-orm-cli", binary = "sea-orm-cli", test_arg = "--help" }
+env_files = [
+    ".env",
+]
+env = { "DATABASE_URL" = "${DATABASE_PROTOCOL}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}" }
+command = "sea-orm-cli"
+args = ["generate", "entity", "-o", "./database/entity/src"]
