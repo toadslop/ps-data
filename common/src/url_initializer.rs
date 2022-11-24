@@ -1,9 +1,11 @@
-use url::Url;
-
-use crate::keys::{
-    DATABASE_HOST_KEY, DATABASE_NAME_KEY, DATABASE_PASSWORD_KEY, DATABASE_PORT_KEY,
-    DATABASE_PROTOCOL_KEY, DATABASE_USER_KEY, DEFAULT_DB_URL,
+use crate::{
+    defaults::DEFAULT_DB_URL,
+    keys::{
+        DATABASE_HOST_KEY, DATABASE_NAME_KEY, DATABASE_PASSWORD_KEY, DATABASE_PORT_KEY,
+        DATABASE_PROTOCOL_KEY, DATABASE_USER_KEY,
+    },
 };
+use url::Url;
 
 pub struct UrlInitializer;
 
