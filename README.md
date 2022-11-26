@@ -10,7 +10,7 @@ This app is built with Rust, so you'll need to install Rust to run it.
 Learn how to install Rust [here](https://www.rust-lang.org/tools/install).
 
 ### Database Installation
-This app uses a Postgres 14 database.
+This app uses a Postgres 15 database.
 
 Download and install [here](https://www.postgresql.org/download/).
 
