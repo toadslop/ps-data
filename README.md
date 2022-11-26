@@ -41,4 +41,4 @@ To start the app, run `cargo make start_back`.
 
 To test if it's running, try clicking this link: http://localhost:8080.
 
-You should see "Hello world!" printed on the screen.
+You should see "Server is running." printed on the screen.
