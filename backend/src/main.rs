@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use config::env::Env;
 
@@ -17,11 +19,19 @@ async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
+fn init_logger(config_path: PathBuf) {
+    log4rs::init_file(&config_path, Default::default()).expect(&format!(
+        "the log config file was not found at {}",
+        config_path.display()
+    ));
+
+    log::info!("Log config loaded at {}", config_path.display());
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let env = Env::init();
-    log4rs::init_file(env.get_config_path(), Default::default())
-        .expect("the log.yaml config file was not found");
+    init_logger(env.get_config_path());
 
     HttpServer::new(|| {
         App::new()
