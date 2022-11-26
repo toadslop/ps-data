@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = { version = "4.2.1", default-features = false, features = ["macros"] }
+actix-web-httpauth = "0.8.0"
 common = { path = "../common" }
 log = "0.4.17"
 
