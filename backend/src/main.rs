@@ -1,23 +1,11 @@
 use std::path::PathBuf;
 
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{App, HttpServer};
 use config::env::Env;
+use routes::health;
 
 mod config;
-
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
-
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
-
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
-}
+mod routes;
 
 fn init_logger(config_path: PathBuf) {
     log4rs::init_file(&config_path, Default::default()).expect(&format!(
@@ -33,13 +21,8 @@ async fn main() -> std::io::Result<()> {
     let env = Env::init();
     init_logger(env.get_config_path());
 
-    HttpServer::new(|| {
-        App::new()
-            .service(hello)
-            .service(echo)
-            .route("/hey", web::get().to(manual_hello))
-    })
-    .bind(("127.0.0.1", 8080))?
-    .run()
-    .await
+    HttpServer::new(|| App::new().service(health))
+        .bind(("127.0.0.1", 8080))?
+        .run()
+        .await
 }
