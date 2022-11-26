@@ -26,6 +26,25 @@ script = [
 workspace = false
 command = "cargo"
 args = ["run", "--manifest-path", "backend/Cargo.toml"]
+dependencies = ["start_db"]
+
+[tasks.start_db]
+workspace = false
+command = "docker-compose"
+args = ["up", "-d"]
+
+[tasks.stop_db]
+workspace = false
+command = "docker-compose"
+args = ["down"]
+
+[tasks.start]
+workspace = false
+run_task = { name = "start_back" }
+
+[tasks.stop]
+workspace = false
+run_task = { name = "stop_db" }
 
 [tasks.g_entity]
 workspace = false
